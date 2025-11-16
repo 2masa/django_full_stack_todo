@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include "flash_message.html" %}
+  {% include "head.html" %}
+  {% include "navbar.html" %}
+  <body class="bg-gray-100 min-h-screen">
+    {% block content %}{% endblock %} {% include "footer.html" %}
+  </body>
+</html>

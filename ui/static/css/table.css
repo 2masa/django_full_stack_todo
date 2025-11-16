@@ -1,0 +1,46 @@
+
+.todo-table-container {
+    min-width: 100%;
+    background-color: #ffffff; 
+    border-radius: 0.5rem; 
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* This will be overridden by .section-card's shadow if nested */
+    max-width: 100%; /* Ensure it doesn't exceed its parent's width */
+    width: 90%;
+    /* Removed redundant max-width: 1000px here as section-card already handles it */
+}
+
+.todo-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.todo-table-header {
+    background-color: #e5e7eb;
+}
+
+.todo-table-header-cell {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 1px solid #d1d5db;
+}
+
+.todo-table-row:hover {
+    background-color: #f9fafb;
+}
+
+.todo-table-cell {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 0.875rem;
+    color: #1f2937;
+}
+
+.todo-table-empty-message {
+    padding: 1rem;
+    text-align: center;
+    color: #6b7280;
+}

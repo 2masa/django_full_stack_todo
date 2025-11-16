@@ -1,0 +1,20 @@
+[project]
+name = "ui"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14.0"
+dependencies = [
+    "cryptography>=46.0.3",
+    "edgedb>=2.2.0",
+    "fastapi[all]>=0.115.12",
+    "flask>=3.1.2",
+    "flask-session>=0.8.0",
+    "flask-wtf>=1.2.2",
+    "jinja2>=3.1.6",
+    "jose>=1.0.0",
+    "python-jose>=3.5.0",
+    "redis>=7.0.1",
+    "requests>=2.32.5",
+    "rignore>=0.7.6",
+]

@@ -1,0 +1,43 @@
+using future nonrecursive_access_policies;
+module default {
+    global current_user_id -> std::uuid;
+    type AuditLog {
+        required property timestamp: std::datetime {
+            default := (std::datetime_current());
+            readonly := true;
+        };
+        required property action: std::str{
+            readonly := true;
+        };
+        required link entity: std::Object {
+            readonly := true;
+            on target delete delete source;
+        };
+        required link user: user::UserType {
+            default := (
+                Select user::UserType Filter .id = (global default::current_user_id)
+            );
+            readonly := true;
+            on target delete delete source;
+        };    
+    };
+    abstract type Auditable {
+        trigger log_insert  
+        after insert for each 
+        do (
+            insert default::AuditLog{
+                entity := __new__,
+                action := "insert",
+            }
+        );
+
+        trigger log_update 
+        after update for each
+        do (
+            insert default::AuditLog{
+                entity := __new__,
+                action := "update",
+            }
+        )
+    }
+}

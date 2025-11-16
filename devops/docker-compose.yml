@@ -1,0 +1,76 @@
+networks:
+  todo:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.0.0.0/24
+
+services:
+  todo_api:
+    build:
+      context: ../api
+      dockerfile: Dockerfile
+    env_file:
+      - envs/api.env
+      - envs/db.env
+    depends_on:
+      - todo_db
+    ports:
+      - "7000:7000"
+    networks:
+      todo:
+        ipv4_address: 172.0.0.2
+
+
+  todo_db:
+    build:
+      context: ../db
+      dockerfile: Dockerfile
+    env_file:
+      - envs/db.env
+    environment:
+      EDGEDB_SERVER_DATADIR: "/todo_db_data"
+      EDGEDB_SERVER_ADMIN_UI: "enabled"      
+    volumes:
+      - todo_db_data:/todo_db_data
+    ports:
+      - "5151:5151"
+    networks:
+      todo:
+        ipv4_address: 172.0.0.3
+
+  todo_ui:
+    build:
+      context: ../ui
+      dockerfile: Dockerfile
+    env_file:
+      - envs/api.env
+      - envs/ui.env
+    depends_on:
+      - todo_api
+    ports:
+      - "5000:5000"
+    networks:
+      todo:
+        ipv4_address: 172.0.0.4
+
+  redis:
+    image: redis:latest
+    ports:
+      # Maps host port 6370 (which you used) to the container's 6379
+      - "6370:6379"
+    healthcheck:
+      # This is crucial: it makes todo_ui wait until Redis is ready
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    networks:
+      todo:
+        # Assigned the next available IP in your subnet
+        ipv4_address: 172.0.0.5
+
+
+volumes:
+  todo_db_data:

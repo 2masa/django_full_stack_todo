@@ -1,0 +1,14 @@
+module todo {
+    # 1. Create the scalar enum SourceType
+    scalar type TodoStatus extending enum<Open,Completed, Pending, InProgress, Cancelled>;
+    scalar type TodoPriorityStatus extending enum<Highest, High, Medium, Low>;
+    type Todo extending default::Auditable {
+        required link user: user::User {
+            on target delete delete source;
+        };
+        required property status: TodoStatus;
+        required property title: std::str;
+        property description: std::str;
+        required property priority: TodoPriorityStatus;
+    }
+}

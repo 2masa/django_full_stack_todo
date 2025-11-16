@@ -1,0 +1,49 @@
+.app-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.90rem 1rem;
+    padding-bottom: 1%;
+    background-color: #2D3748; 
+    color: #E2E8F0; /* Text Color */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.app-navbar-left,
+.app-navbar-right {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.app-navbar-left {
+    flex: 1;
+    justify-content: flex-start;
+}
+
+.app-navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.app-navbar-right {
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.app-navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.app-navbar a:hover {
+    color: #d1d5db; /* Tailwind's text-gray-300 */
+}

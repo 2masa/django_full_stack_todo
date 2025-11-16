@@ -1,0 +1,37 @@
+module user {
+    type User extending user::UserType, default::Auditable {
+        required phone_number: std::str;
+    };
+
+    type Credential extending default::Auditable {
+        link user: user::UserType{
+            on target delete delete source;
+            constraint std::exclusive;
+        }
+        required property password: std::bytes;
+        required property last_changed: std::datetime{
+            default:= std::datetime_current();
+        }
+    };
+
+    type RootUser extending UserType {
+        overloaded required property name: std::str{
+            default:= "Todo's Root User"
+        }
+        overloaded required property email: std::str {
+            default := "rootadmin@todo.com"
+        };
+    };
+
+    abstract type UserType {
+        required property email: std::str;
+        required property name: std::str;
+        constraint std::exclusive on (.email) {
+            annotation std::title := 'User email details';
+            errmessage := 'User email already exists.';
+        };
+        required property clean_email: std::str{
+            default:= str_trim(str_lower(.email))
+        };        
+    }
+};

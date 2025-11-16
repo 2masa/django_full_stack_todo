@@ -1,0 +1,26 @@
+.flash-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  z-index: 9999;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  display: none; /* hidden initially */
+  }
+  
+.flash-message.success {
+  background-color: #d1fae5; /* bg-green-100 */
+  color: #065f46;            /* text-green-800 */
+  border: 1px solid #10b981; /* green-500 */
+}
+
+.flash-message.error {
+  background-color: #fee2e2; /* bg-red-100 */
+  color: #991b1b;            /* text-red-800 */
+  border: 1px solid #ef4444; /* red-500 */
+}

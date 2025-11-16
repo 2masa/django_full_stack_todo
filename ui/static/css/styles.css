@@ -1,0 +1,153 @@
+
+
+
+
+body {
+    font-family: 'Inter', sans-serif; /* Using Inter font for consistency */
+    background-color: #f3f4f6; /* Light gray background */
+    min-height: 100vh; /* Ensures body takes full viewport height */
+    display: flex; /* Enables flexbox */
+    flex-direction: column; /* Arranges children in a column */
+    margin: 0; /* Remove default body margin */
+    padding: 1; /* Remove default body padding */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex; /* <-- CHANGE THIS LINE */
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+.container {
+    max-width: 1280px; /* Equivalent to Tailwind's 'max-w-7xl' or similar for large screens */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem; /* Equivalent to 'p-6' or 'px-6' for horizontal padding */
+    padding-right: 1.5rem; /* Equivalent to 'p-6' or 'px-6' for horizontal padding */
+}
+
+.app-header {
+    background-color: #2563eb; /* Tailwind's bg-blue-600 */
+    color: #ffffff; /* Tailwind's text-white */
+    padding: 1rem; /* Tailwind's p-4 */
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* Tailwind's shadow-md */
+}
+
+.app-nav {
+    display: flex; /* Tailwind's flex */
+    justify-content: space-between; /* Tailwind's justify-between */
+    align-items: center; /* Tailwind's items-center */
+}
+
+.app-logo {
+    font-size: 1.5rem; /* Tailwind's text-2xl (24px) */
+    font-weight: 700; /* Tailwind's font-bold */
+    border-radius: 0.25rem; /* Tailwind's rounded-md */
+    padding: 0.5rem 0.75rem; /* Tailwind's px-3 py-2 */
+    transition: background-color 0.2s ease-in-out; /* Tailwind's transition-colors */
+}
+
+.app-logo:hover {
+    background-color: #1d4ed8; /* Tailwind's hover:bg-blue-700 */
+}
+
+
+.app-nav-list {
+    display: flex; /* Tailwind's flex */
+    list-style: none; /* Removes bullet points */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    gap: 1rem; /* Tailwind's space-x-4 (equivalent to margin-left on subsequent items) */
+}
+
+.app-nav-link {
+    font-size: 1.125rem; /* Tailwind's text-lg (18px) */
+    transition: color 0.2s ease-in-out; /* Tailwind's transition-colors */
+    border-radius: 0.25rem; /* Tailwind's rounded-md */
+    padding: 0.5rem 0.75rem; /* Tailwind's px-3 py-2 */
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color from parent (white) */
+}
+
+.app-nav-link:hover {
+    color: #93c5fd; /* Tailwind's hover:text-blue-200 */
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle background change on hover */
+}
+
+.app-main {
+    flex-grow: 1; /* Tailwind's flex-grow */
+    padding: 1.5rem; /* Tailwind's p-6 */
+}
+
+.app-footer {
+    background-color: #2D3748; 
+    color: #E2E8F0; /* Text Color */
+    text-align: center; /* Tailwind's text-center */
+    margin-top: auto; /* Tailwind's mt-auto (pushes footer to bottom in flex column) */
+    box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05); /* Tailwind's shadow-inner */
+}
+
+
+.section-card {
+    background-color: #ffffff; /* White background */
+    padding: 1.5rem; /* Padding all around (24px) */
+    border-radius: 0.5rem; /* Rounded corners (8px) */
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* Larger shadow */
+    width: 100%; /* Ensure it takes full width of its parent */
+    max-width: 1000px; /* Max width for larger screens */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+    margin-bottom: 2rem; /* Add some space below the card */
+    display: flex;
+}
+
+
+.section-header {
+    position: relative; /* Allows child elements to be absolutely positioned relative to this container */
+    display: flex; /* Enables flexbox layout */
+    align-items: center; /* Vertically aligns items in the center */
+    margin-bottom: 1rem; /* Bottom margin (16px) */
+}
+
+
+.section-title {
+    flex-grow: 1; /* Allows the title to take up all available space, pushing the button to the side */
+    text-align: center; /* Centers the text horizontally */
+    font-size: 1.5rem; /* Large font size (24px) */
+    font-weight: 700; /* Bold font weight */
+    color: #1f2937; /* Very dark gray text color */
+}
+
+
+.section-button {
+    position: absolute; /* Positions the button relative to its closest positioned ancestor (.section-header) */
+    right: 0; /* Aligns the button to the far right */
+    padding: 0.5rem 1rem; /* Vertical padding 8px, horizontal padding 16px */
+    background-color: #2563eb; /* Blue background color */
+    color: #ffffff; /* White text color */
+    border-radius: 0.25rem; /* Slightly rounded corners (4px) */
+    border: none; /* Remove default button border */
+    cursor: pointer; /* Indicate it's clickable */
+    transition: background-color 0.2s ease-in-out; /* Smooth transition for hover effect */
+}
+
+
+.section-button:hover {
+    background-color: #1d4ed8; /* Darker blue on hover */
+}
+
+.app-p-tag {
+    color: #1f2937; /* Very dark gray text color */
+    text-align: center;
+}
+
+.app-site-title {
+    color: #2D3748; /* Text Color */
+}
