@@ -49,7 +49,7 @@ graph TD
         CLI -- Manages --> Docker(Docker Compose);
         CLI -- Seeds --> DB;
     end
-```
+
 
 ## 📁 Project StructureA tree view of the main repositories/folders..
 
