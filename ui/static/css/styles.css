@@ -97,15 +97,16 @@ body {
 
 
 .section-card {
-    background-color: #ffffff; /* White background */
-    padding: 1.5rem; /* Padding all around (24px) */
-    border-radius: 0.5rem; /* Rounded corners (8px) */
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* Larger shadow */
-    width: 100%; /* Ensure it takes full width of its parent */
-    max-width: 1000px; /* Max width for larger screens */
-    box-sizing: border-box; /* Include padding in element's total width and height */
-    margin-bottom: 2rem; /* Add some space below the card */
-    display: flex;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+    
+    /* --- CHANGE THIS LINE --- */
+    display: block; 
+    /* ------------------------ */
 }
 
 

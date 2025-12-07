@@ -1,5 +1,6 @@
 import subprocess
 import time
+import shutil
 import rich_click as click
 from rich.console import Console
 from rich.panel import Panel
@@ -10,6 +11,30 @@ from app.config import settings
 from app.db import get_sync_client
 
 console = Console()
+
+def get_docker_compose_cmd():
+    """
+    Dynamically determine whether to use 'docker compose' (V2) 
+    or the legacy 'docker-compose' (V1).
+    """
+    # 1. Try 'docker compose' (preferred V2)
+    try:
+        subprocess.run(
+            ["docker", "compose", "version"], 
+            check=True, 
+            stdout=subprocess.DEVNULL, 
+            stderr=subprocess.DEVNULL
+        )
+        return ["docker", "compose"]
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        pass
+
+    # 2. Try legacy 'docker-compose'
+    if shutil.which("docker-compose"):
+        return ["docker-compose"]
+        
+    # 3. Default to 'docker compose' so errors indicate Docker is missing entirely
+    return ["docker", "compose"]
 
 def run_command(cmd_list, error_msg, capture_output=False, check=True):
     """Helper to run shell commands and handle errors."""
@@ -70,8 +95,9 @@ def service() -> None:
 def start_services() -> None:
     """Start all services in detached mode."""
     console.print("[cyan]Starting all services...[/cyan]")
+    dc_cmd = get_docker_compose_cmd()
     run_command(
-        ["docker-compose", "-f", "docker-compose.yml", "up", "-d", "--build"],
+        dc_cmd + ["-f", "docker-compose.yml", "up", "-d", "--build"],
         "Failed to start services."
     )
     console.print("[bold green]Services started successfully.[/bold green]")
@@ -80,8 +106,9 @@ def start_services() -> None:
 def stop_services() -> None:
     """Stop all running services."""
     console.print("[cyan]Stopping all services...[/cyan]")
+    dc_cmd = get_docker_compose_cmd()
     run_command(
-        ["docker-compose", "-f", "docker-compose.yml", "stop"],
+        dc_cmd + ["-f", "docker-compose.yml", "stop"],
         "Failed to stop services."
     )
     console.print("[bold green]Services stopped.[/bold green]")
@@ -90,8 +117,9 @@ def stop_services() -> None:
 def down_services() -> None:
     """Stop and remove all services (keeps volumes)."""
     console.print("[cyan]Stopping and removing service containers...[/cyan]")
+    dc_cmd = get_docker_compose_cmd()
     run_command(
-        ["docker-compose", "-f", "docker-compose.yml", "down"],
+        dc_cmd + ["-f", "docker-compose.yml", "down"],
         "Failed to bring services down."
     )
     console.print("[bold green]Services are down.[/bold green]")
@@ -102,8 +130,9 @@ def purge_services() -> None:
     console.print("[bold red]WARNING: This will stop all services and permanently delete all data (database, etc).[/bold red]")
     if click.confirm("Are you sure you want to continue?", abort=True):
         console.print("[cyan]Purging services and volumes...[/cyan]")
+        dc_cmd = get_docker_compose_cmd()
         run_command(
-            ["docker-compose", "-f", "docker-compose.yml", "down", "-v"],
+            dc_cmd + ["-f", "docker-compose.yml", "down", "-v"],
             "Failed to purge services and volumes."
         )
         console.print("[bold green]Services and volumes purged.[/bold green]")
@@ -131,8 +160,9 @@ def start_beginner() -> None:
     
     # --- Step 3: Start services ---
     console.print("\n[cyan]Step 3: Starting all Docker services...[/cyan]")
-    with Status("Running 'docker-compose up -d --build'...", spinner="dots"):
-        if not run_command(["docker-compose", "-f", "docker-compose.yml", "up", "-d", "--build"], "Failed to start services"):
+    dc_cmd = get_docker_compose_cmd()
+    with Status(f"Running '{' '.join(dc_cmd)} up -d --build'...", spinner="dots"):
+        if not run_command(dc_cmd + ["-f", "docker-compose.yml", "up", "-d", "--build"], "Failed to start services"):
             return
     console.print("[green]✓ Services started.[/green]")
 

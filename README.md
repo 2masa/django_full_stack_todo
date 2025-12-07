@@ -2,26 +2,26 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/build-passing-brightgreen" alt="Build Status">
-  <img src="https://img.shields.io/badge/tech-FastAPI_&_Flask-blue" alt="Tech">
-  <img src="https://img.shields.io/badge/db-EdgeDB-purple" alt="Database">
+  <img src="https://img.shields.io/badge/tech-FastAPI_&_Django-blue" alt="Tech">
+  <img src="https://img.shields.io/badge/db-EdgeDB_(Gel)-purple" alt="Database">
 </p>
 
-A one-sentence description of what this full-stack project does.
+A full-stack Todo application built with a stateless Django frontend and a FastAPI backend, orchestrated via a custom Python CLI.
 
 ## 🚀 Quick Start (Local Development)
 
 This project is managed by a central `devops` CLI.
 
 1.  **Navigate to the `devops` directory:**
-    ```
+    ```bash
     cd devops
     ```
 2.  **Install CLI dependencies:**
-    ```
+    ```bash
     uv sync
     ```
 3.  **Run the automated "start dev" command:**
-    ```
+    ```bash
     uv run cli service start-dev
     ```
 This single command will:
@@ -39,10 +39,10 @@ A high-level overview of the services and how they interact.
 
 ```mermaid
 graph TD
-    User([User's Browser]) -- Views --> UI(todo_ui - Flask);
+    User([User's Browser]) -- Views/HTMX --> UI(todo_ui - Django);
     UI -- Stores Session --> Redis(redis);
     UI -- API Calls (JWT) --> API(todo_api - FastAPI);
-    API -- Queries --> DB(todo_db - EdgeDB);
+    API -- Queries --> DB(todo_db - EdgeDB/Gel);
 
     subgraph "Developer Control"
         Dev(Developer) -- Runs --> CLI(devops/ CLI);

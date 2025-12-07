@@ -1,7 +1,0 @@
-{% macro drop_down(options,name,id,default_value="") %}
-<select name="{{name}}" id="{{id}}" class="form-input">
-    {% for option in options %}
-    <option value="{{option}}"  {% if option == default_value %}selected{% endif %}>{{option}}</option>
-    {% endfor %}
-</select>
-{% endmacro %}
