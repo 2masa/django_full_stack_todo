@@ -22,8 +22,8 @@ class Settings(BaseSettings):
     geldb_private_key: str = Field(alias="GEL_SERVER_TLS_KEY")    
 
     # Flask
-    flask_port:str = Field(alias="FLASK_PORT")
-    flask_host:str = Field(alias="FLASK_HOST")
+    django_port:str = Field(alias="DJANGO_PORT")
+    django_host:str = Field(alias="DJANGO_HOST")
     # Build Version
     model_config = SettingsConfigDict(env_file="envs/cli.env", extra="ignore")
 

@@ -70,7 +70,7 @@ GEL_SERVER_PASSWORD=generate_b64_pwd()
 
 JWT_SECURITY_KEY=generate_b64_pwd()
 
-FLASK_SECURITY_KEY=generate_b64_pwd()
+DJANGO_SECURITY_KEY=generate_b64_pwd()
 
 db_env = {
         "GEL_HOST":"172.0.0.3",
@@ -85,8 +85,8 @@ db_env = {
     }
 cli_env = db_env
 cli_env.update({
-        "FLASK_PORT": 5000,
-        "FLASK_HOST": "0.0.0.0"})
+        "DJANGO_PORT": 5000,
+        "DJANGO_HOST": "0.0.0.0"})
 env_data = {
     "db.env":db_env,
     "cli.env":cli_env,
@@ -97,11 +97,11 @@ env_data = {
         "JWT_SECURITY_KEY": JWT_SECURITY_KEY,
     },  
     "ui.env":{
-        "FLASK_SECURITY_KEY": FLASK_SECURITY_KEY,
+        "DJANGO_SECURITY_KEY": DJANGO_SECURITY_KEY,
         "FASTAPI_BASE_URL": "http://172.0.0.2:7000",
-        "FLASK_PORT": 5000,
-        "FLASK_HOST": "0.0.0.0",
-        "FLASK_DEBUG": "true",
+        "DJANGO_PORT": 5000,
+        "DJANGO_HOST": "0.0.0.0",
+        "DJANGO_DEBUG": "true",
         "REDIS_HOST": "172.0.0.5",
         "REDIS_PORT": 6379,
     },      

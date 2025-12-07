@@ -190,8 +190,8 @@ def start_beginner() -> None:
     console.print("\n[bold green]🎉 Setup Complete! 🎉[/bold green]")
     
     
-    host = "localhost" if settings.flask_host == "0.0.0.0" else settings.flask_host
-    url = f"http://{host}:{settings.flask_port}"
+    host = "localhost" if settings.django_host == "0.0.0.0" else settings.django_host
+    url = f"http://{host}:{settings.django_port}"
     console.print(Panel(
         f"You can now access the web UI at:\n\n[link={url}]{url}]{url}[/link]",
         title="Application Ready",

@@ -37,12 +37,12 @@ The project follows a standard Django layout:
 ## 🔑 Environment Variables
 
 This service is configured via `devops/envs/ui.env`.
-*> Note: Variable names currently retain `FLASK_` prefixes to ensure compatibility with the existing DevOps CLI generator.*
+*> Note: Variable names currently retain `DJANGO_` prefixes to ensure compatibility with the existing DevOps CLI generator.*
 
 | Variable | Django Setting | Description |
 | :--- | :--- | :--- |
-| `FLASK_SECURITY_KEY` | `SECRET_KEY` | **[SECRET]** Used for cryptographic signing. |
-| `FLASK_DEBUG` | `DEBUG` | Toggle debug mode (`true`/`false`). |
+| `DJANGO_SECURITY_KEY` | `SECRET_KEY` | **[SECRET]** Used for cryptographic signing. |
+| `DJANGO_DEBUG` | `DEBUG` | Toggle debug mode (`true`/`false`). |
 | `FASTAPI_BASE_URL` | `FASTAPI_BASE_URL` | Internal URL of the backend API (e.g., `http://todo_api:7000`). |
 | `REDIS_HOST` | `CACHES['default']` | Redis service host (e.g., `redis` or IP). |
 | `REDIS_PORT` | `CACHES['default']` | Redis service port (e.g., `6379`). |

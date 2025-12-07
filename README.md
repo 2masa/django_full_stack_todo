@@ -56,7 +56,7 @@ graph TD
 
 ```
 ├── api/          # Backend FastAPI service
-├── ui/           # Frontend Flask/HTMX service
+├── ui/           # Frontend Django/HTMX service
 ├── db/           # EdgeDB Docker configuration
 ├── dbschema/     # EdgeDB .gel schema files
 ├── devops/       # Main CLI, docker-compose.yml, and envs
