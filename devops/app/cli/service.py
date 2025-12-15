@@ -1,14 +1,16 @@
+from pathlib import Path
 import subprocess
 import time
 import shutil
+from app.controller import run_command
 import rich_click as click
 from rich.console import Console
 from rich.panel import Panel
 from rich.status import Status
 # Import the getter function for settings
-from app.config import settings
 # Import the sync client to check the DB
 from app.db import get_sync_client
+
 
 console = Console()
 
@@ -36,30 +38,6 @@ def get_docker_compose_cmd():
     # 3. Default to 'docker compose' so errors indicate Docker is missing entirely
     return ["docker", "compose"]
 
-def run_command(cmd_list, error_msg, capture_output=False, check=True):
-    """Helper to run shell commands and handle errors."""
-    try:
-        # Note: We run commands from the 'devops' dir, so docker-compose path is relative
-        result = subprocess.run(
-            cmd_list, 
-            check=check, 
-            capture_output=capture_output, 
-            text=True,
-            encoding='utf-8', # Explicitly set encoding
-            cwd="." # Run from the devops directory
-        )
-        if capture_output:
-            return result.stdout.strip()
-        return True
-    except subprocess.CalledProcessError as e:
-        console.print(f"[bold red]Error: {error_msg}[/bold red]")
-        if e.stderr:
-            console.print(f"Details: {e.stderr}")
-        return False
-    except FileNotFoundError:
-        console.print(f"[bold red]Error: Command not found.[/bold red]")
-        console.print(f"Please ensure '{cmd_list[0]}' is installed and in your PATH.")
-        return False
 
 # --- NEW HELPER FUNCTION ---
 def check_db_connection() -> bool:
@@ -153,10 +131,13 @@ def start_beginner() -> None:
 
     # --- Step 2: Create .env files ---
     console.print("\n[cyan]Step 2: Creating new .env files...[/cyan]")
-    if not run_command(["uv", "run", "cli", "env", "create"], "Failed to create .env files"):
-        console.print("[bold red]Env file creation failed. Please check the error above.[/bold red]")
-        return
-    console.print("[green]✓ Environment files created.[/green]")
+    env_path = Path("envs/cli.env")
+    if not env_path.exists():
+        
+        if not run_command(["uv", "run", "cli", "env", "create"], "Failed to create .env files"):
+            console.print("[bold red]Env file creation failed. Please check the error above.[/bold red]")
+            return
+        console.print("[green]✓ Environment files created.[/green]")
     
     # --- Step 3: Start services ---
     console.print("\n[cyan]Step 3: Starting all Docker services...[/cyan]")
@@ -189,7 +170,7 @@ def start_beginner() -> None:
     # --- Step 8: Show link (Fixed settings load) ---
     console.print("\n[bold green]🎉 Setup Complete! 🎉[/bold green]")
     
-    
+    from app.config import settings
     host = "localhost" if settings.django_host == "0.0.0.0" else settings.django_host
     url = f"http://{host}:{settings.django_port}"
     console.print(Panel(
