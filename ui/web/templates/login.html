@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "flash_message.html" %}
+{% include "head.html" %}
+
+<body class="bg-gray-100 min-h-screen">
+    <div class="login-header">
+        <h2>Todo'S</h2>
+    </div>
+    <div id="loginForm" class="login-form">
+        <div class="modal-box">
+            <h2 class="modal-title">Welcome to Todo'S</h2>
+            <form hx-post="{% url 'login' %}" hx-ext="json-enc" hx-swap="none">
+                <div class="form-group">
+                    <label for="username" class="form-label">User Name</label>
+                    <input type="text" id="username" name="username" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" class="form-input">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn">Login</button>
+                    <button class="btn">Forgot Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

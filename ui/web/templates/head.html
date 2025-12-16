@@ -1,0 +1,27 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    
+    <title>{% block title %}My Simple App{% endblock %}</title>
+
+    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flash_message.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+    <script src="{% static 'js/home.js' %}"></script>
+    <script src="{% static 'js/todo.js' %}"></script>
+
+    <script>
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+        });
+    </script>
+</head>

@@ -1,0 +1,41 @@
+{% load ui_components %}
+<button onclick="openModal('UpdateTodo-{{ item.id }}')" class="btn">Edit</button>
+
+<div id="UpdateTodo-{{ item.id }}" class="form-modal-overlay">
+  <div class="modal-box">
+      <h2 class="modal-title">Update Todo</h2>
+      <button onclick="closeModal('UpdateTodo-{{ item.id }}')" class="modal-close-button">&times;</button>
+
+    <form
+    hx-patch="{% url 'edit_todo' todo_id=item.id %}"
+    hx-ext="json-enc"
+    hx-target="#UpdateTodo-{{ item.id }}"
+    hx-swap="none">
+      
+      <div class="form-group">
+        <label class="form-label" for="title-{{ item.id }}">Title</label>
+        <input type="text" name="title" id="title-{{ item.id }}" value="{{ item.title }}" class="form-input" required />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="priority-{{ item.id }}">Priority</label>
+        {% drop_down priority_options "priority" "priority"|add:"-"|add:item.id item.priority %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="status-{{ item.id }}">Status</label>
+        {% drop_down status_options "status" "status"|add:"-"|add:item.id item.status %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="description-{{ item.id }}">Description</label>
+        <textarea name="description" id="description-{{ item.id }}" class="form-textarea">{{ item.description }}</textarea>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" onclick="closeModal('UpdateTodo-{{ item.id }}')" class="btn">Close</button>
+        <button class="btn">Update Todo</button>
+      </div>
+    </form>
+  </div>
+</div>

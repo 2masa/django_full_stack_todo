@@ -1,0 +1,19 @@
+<button onclick="openModal('DeleteTodo-{{ item.id }}')" class="btn btn-danger">Delete</button>
+<div id="DeleteTodo-{{ item.id }}" class="form-modal-overlay"> 
+  <div class="modal-box">
+    <h2 class="modal-title">Confirm Delete</h2> 
+    <button onclick="closeModal('DeleteTodo-{{ item.id }}')" class="modal-close-button">&times;</button>
+    <p class="app-p-tag">Are you sure you want to delete this item?</p>
+    <div class="modal-footer">
+      <button onclick="closeModal('DeleteTodo-{{ item.id }}')" class="btn">Cancel</button>
+      <button 
+        hx-delete="{% url 'delete_todo' todo_id=item.id %}"
+        hx-trigger="click"
+        hx-target="#DeleteTodo-{{ item.id }}"
+        class="btn btn-danger"
+        hx-swap="none">
+        Delete
+      </button>
+  </div>
+  </div>
+</div>
